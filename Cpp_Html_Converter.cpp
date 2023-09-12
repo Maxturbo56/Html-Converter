@@ -198,7 +198,7 @@ int main()
 					cout << "Pages available are : " << endl;
 					ifstream stranice;
 					string line;
-					stranice.open("Stranice.txt", ios::out);
+					stranice.open("page_dll.txt", ios::out);
 					while (getline(stranice, line))
 					{
 						cout << "\t" << line << endl;
