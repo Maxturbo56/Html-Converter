@@ -5,6 +5,37 @@ using namespace std;
 
 string page_name;
 
+void Hot_Reload(string name_of_page)
+{
+	//Prtvori Ime stranice u drugu var
+	string one = name_of_page;
+	
+	//Doda extenziju
+	string operational = one + ".html";
+	
+	//Vadi broj charova
+	int limit = operational.length();
+	
+	//Pravi ime stranice za otvoriti u vidu niza charova (ima ih koliki je limit)
+	char imec[limit];
+	
+	//Pretvara ime u charove
+	for(int i = 0; i < limit; i++)
+	{
+		imec[i] = operational[i];
+	}
+	
+	//Output u konzolu ...
+	cout<<"Opening ";
+	for(int i = 0; i < limit; i++)
+	{
+		cout<<imec[i];
+	}
+	cout<<" ..."<<endl<<endl;
+	
+	system(imec);
+}
+
 void Input_Paragraph()
 {
 	string paragraph;
@@ -68,7 +99,9 @@ void Input_Heading()
 {
 	string heading;
 	cout << "Provide a heading for your page : " << endl;
-	cin >> heading;
+	cin.ignore();
+	getline(cin, heading);
+	cin.ignore();
 	ofstream stranica;
 	stranica.open(page_name + ".html", ios::app);
 	stranica << "<h1>" << heading << "</h1>" << endl;
@@ -88,7 +121,7 @@ void New_Page()
 	//------------------------------------------------------------
 
 	do {
-		cout << "What do you wish to add to your new page : \n\t1. A Heading \n\t2. A Paragraph \n\t3. A Picture \n\t4. End Page\n\n\n\t9. End Editing" << endl;
+		cout << "What do you wish to add to your new page : \n\t1. A Heading \n\t2. A Paragraph \n\t3. A Picture \n\t4. End Page\n\t7. Hot Reload\n\n\n\t9. End Editing" << endl;
 		cin >> user_Input;
 		switch (user_Input)
 		{
@@ -117,6 +150,11 @@ void New_Page()
 				cout << "Terminating Edit..." << endl;
 				break;
 			}
+			case 7: 
+			{
+				Hot_Reload(page_name);
+				break;
+			}
 			default:
 			{
 				cout << "Do you really have time for this?" << endl;
@@ -131,7 +169,7 @@ void Resume_Work(string name_to_resume)
 	int user_Input;
 	page_name = name_to_resume;
 	do {
-		cout << "What do you wish to add to "<<page_name<<" : \n\t1.A Heading \n\t2.A Paragraph \n\t3.A Picture \n\t4.End Page\n\n\n\t9.End Editing" << endl;
+		cout << "What do you wish to add to "<<page_name<<" : \n\t1.A Heading \n\t2.A Paragraph \n\t3.A Picture \n\t4.End Page\n\t7. Hot Reload\n\n\n\t9.End Editing" << endl;
 		cin >> user_Input;
 		switch (user_Input)
 		{
@@ -160,9 +198,15 @@ void Resume_Work(string name_to_resume)
 				cout << "Terminating Edit..." << endl;
 				break;
 			}
+			case 7: 
+			{
+				Hot_Reload(page_name);
+				break;
+			}
 			default:
 			{
 				cout << "Do you really have time for this?" << endl;
+				break;
 			}
 		}
 	} while (user_Input != 9);
