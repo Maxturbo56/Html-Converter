@@ -5,12 +5,58 @@ using namespace std;
 
 string page_name;
 
+void Input_Anchor()
+{	
+	int user_Input;
+	string user_String;
+	
+	ofstream stranica;
+	stranica.open(page_name + ".html", ios::app);
+	stranica << "<a ";
+	
+	cout << "What do you wish to anchor to your page? \n\t 1. Link"<<endl<<endl;
+	cin>>user_Input;
+	switch(user_Input)
+	{
+		case 1:
+		{
+			stranica << "href=\'";
+			cout << "Please paste the link you wish to anchor to : " << endl;
+			cin>>user_String;
+			cout<<"Press ENTER to continue."<<endl<<endl;
+			cin.ignore();
+			stranica << user_String <<"\'>";
+			cout<<"Do you wish to have a text box as your link? (y / n)"<<endl;
+			cin>>user_String;
+			if(user_String == "y")
+			{
+				cout<<"Please provide the text for the link box : "<<endl;
+				cin.ignore();
+				getline(cin, user_String);
+				cin.ignore();
+				stranica<<user_String;
+				break;		
+			}
+			
+			stranica<<"</a>\n"<<endl;
+			
+			break;		
+		}
+	}
+	
+	system("CLS");
+	
+	stranica.close();	
+		
+	//<a href="https://www.w3schools.com">Visit W3Schools.com!</a> 
+}
+
 void Hot_Reload(string name_of_page)
 {
 	//Prtvori Ime stranice u drugu var
 	string one = name_of_page;
 	
-	//Doda extenziju
+	//Dodaj extenziju
 	string operational = one + ".html";
 	
 	//Vadi broj charova
@@ -24,6 +70,8 @@ void Hot_Reload(string name_of_page)
 	{
 		imec[i] = operational[i];
 	}
+	
+	system("CLS");
 	
 	//Output u konzolu ...
 	cout<<"Opening ";
@@ -48,8 +96,10 @@ void Input_Paragraph()
 	getline(cin, paragraph);
 	cin.ignore();
 	stranica << paragraph;
-	stranica << "</p>"<<endl;
+	stranica << "</p>\n"<<endl;
 	stranica.close();
+	
+	system("CLS");
 }
 
 void Input_Picture()
@@ -77,7 +127,7 @@ void Input_Picture()
 	//4.
 	cout << "Provide the height of the picture : (in pixels)" << endl;
 	cin >> user_Input;
-	stranica << "height = \'" << user_Input << "\'>";
+	stranica << "height = \'" << user_Input << "\'>\n";
 
 	//<img src = "img_girl.jpg" //		1.
 	//alt = "Girl in a jacket" //		2.
@@ -91,7 +141,7 @@ void End_Page()
 {
 	ofstream stranica;
 	stranica.open(page_name + ".html", ios::app);
-	stranica << "<" << "/" << "body>" << endl << "<" << "/" << "html>" << endl;
+	stranica << "\n"<< "<" << "/" << "body>" << endl << "<" << "/" << "html>" << endl;
 	stranica.close();
 }
 
@@ -121,7 +171,7 @@ void New_Page()
 	//------------------------------------------------------------
 
 	do {
-		cout << "What do you wish to add to your new page : \n\t1. A Heading \n\t2. A Paragraph \n\t3. A Picture \n\t4. End Page\n\t7. Hot Reload\n\n\n\t9. End Editing" << endl;
+		cout << "What do you wish to add to your new page : \n\t1. A Heading \n\t2. A Paragraph \n\t3. A Picture \n\t4. End Page \n\t5. An Anchor \n\t7. Hot Reload\n\n\n\t9. End Editing" << endl;
 		cin >> user_Input;
 		switch (user_Input)
 		{
@@ -143,6 +193,11 @@ void New_Page()
 			case 4:
 			{
 				End_Page();
+				break;
+			}
+			case 5:
+			{
+				Input_Anchor();
 				break;
 			}
 			case 9:
@@ -169,7 +224,9 @@ void Resume_Work(string name_to_resume)
 	int user_Input;
 	page_name = name_to_resume;
 	do {
-		cout << "What do you wish to add to "<<page_name<<" : \n\t1.A Heading \n\t2.A Paragraph \n\t3.A Picture \n\t4.End Page\n\t7. Hot Reload\n\n\n\t9.End Editing" << endl;
+		cout<<"	Currently working on : "<<page_name<<endl<<endl;
+		
+		cout << "What do you wish to add to "<<page_name<<" : \n\n\t1. A Heading \n\t2. A Paragraph \n\t3. A Picture \n\t4. End Page \n\t5. An Anchor \n\t7. Hot Reload\n\n\n\t9. End Editing" << endl;
 		cin >> user_Input;
 		switch (user_Input)
 		{
@@ -193,6 +250,11 @@ void Resume_Work(string name_to_resume)
 				End_Page();
 				break;
 			}
+			case 5:
+			{
+				Input_Anchor();
+				break;
+			}
 			case 9:
 			{
 				cout << "Terminating Edit..." << endl;
@@ -213,11 +275,11 @@ void Resume_Work(string name_to_resume)
 	End_Page();
 }
 
-
 int main()
 {
 	int user_Input;
 	do {
+		cout<<"Welcome to IndexCreator version 1.0.0"<<endl<<endl;
 		cout << "Select an option you wish : \n\t1. Create a new Page \n\t2. Resume work on a Page \n\t3. Exit" << endl;
 		cin >> user_Input;
 			switch (user_Input)
@@ -251,12 +313,15 @@ int main()
 					string name_To_Resume;
 					cin >> name_To_Resume;
 					Resume_Work(name_To_Resume);
+					
 					system("CLS");
+					
 					break;
 				}
-				case 3:
-					return 0;
+				case 3:	
+					return 0;	
 					break;
+					
 				default: 
 				{
 					cout << "Please Input a valid character value!" << endl;
