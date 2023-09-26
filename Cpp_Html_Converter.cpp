@@ -286,7 +286,7 @@ int main()
 			{
 				case 1: 
 				{
-					cout << "What do you want to name your page : \n\n\tWARNING!!! If you name your page without an underscore ' _ ' it will crash please follow this convention. Thank you." << endl;
+					cout << "What do you want to name your page : \n\n\tWARNING!!! If you name your page without\n an underscore ' _ ' it will crash please follow this convention.\n\n Thank you." << endl;
 					cin >> page_name;
 					ofstream stranice;
 					string line;
